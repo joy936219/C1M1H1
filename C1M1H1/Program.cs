@@ -10,9 +10,9 @@ namespace C1M1H1
     {
         static void Main(string[] args)
         {
-            Game game = new Game(new Deck(), new List<InGamePlayer>());
+            Game game = new Game(new Deck(), new List<InGamePlayer>(), new List<RoundsOfGame>());
 
-            Player p1 = new Human_Player();
+            Player p1 = new AI_Player();
             Player p2 = new AI_Player();
             Player p3 = new AI_Player();
             Player p4 = new AI_Player();

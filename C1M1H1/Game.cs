@@ -10,11 +10,13 @@ namespace C1M1H1
     {
         private Deck _deck;
         private List<InGamePlayer> _inGamePlayers;
+        private List<RoundsOfGame> _gameRounds;
        
-        public Game(Deck deck,List<InGamePlayer> inGamePlayers)
+        public Game(Deck deck,List<InGamePlayer> inGamePlayers, List<RoundsOfGame> gameRounds)
         {
             _deck = deck;
             _inGamePlayers = inGamePlayers;
+            _gameRounds = gameRounds;
         }
         public Deck deck { get => _deck; set => _deck = value; }
 
@@ -26,7 +28,7 @@ namespace C1M1H1
                 throw new Exception(message : "此遊戲只支援4個玩家");
             }
             int sort = player_amount + 1;
-            InGamePlayer inGamePlayer = new InGamePlayer(player, this, new List<Card>(), new List<GameRounds>(), sort);
+            InGamePlayer inGamePlayer = new InGamePlayer(player, this, new List<Card>(), sort);
             _inGamePlayers.Add(inGamePlayer);
             Console.Write($"玩家 : {player.name} 加入遊戲 \r\n");
             return inGamePlayer;
@@ -57,10 +59,15 @@ namespace C1M1H1
         public void StartRound()
         {
             Console.WriteLine("回合開始 \r\n");
-            for(int round =1; round <= 13; round++)
+            for(int round = 1; round <= 13; round++)
             {
-                var p1 = _inGamePlayers[0].Show();
-                var p2 = _inGamePlayers[1].Show();
+                RoundsOfGame gameRounds = new RoundsOfGame(_inGamePlayers, new List<TurnsOfRound>(),  round);
+                _gameRounds.Add(gameRounds);
+                gameRounds.ShowPlayersCard();
+                gameRounds.DisplayPlayersCard();
+                var winner = gameRounds.ComparePlayersCard();
+                _inGamePlayers.Where(p => p.sort == winner.sort).FirstOrDefault().point += 1;
+                Console.WriteLine($"第{round}回合 , {winner.player.name} 得1分, 總計 {_inGamePlayers.Where(p => p.sort == winner.sort).FirstOrDefault().point}分");
             }
         }
     }

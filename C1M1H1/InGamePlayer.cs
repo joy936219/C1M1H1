@@ -9,24 +9,27 @@ namespace C1M1H1
     internal class InGamePlayer
     {
         private int _sort;
+        private int _point = 0;
         private Player _player;
         private Game _game;
         private List<Card> _hand_cards;
-        private List<GameRounds> _gameRounds;
+        //private List<GameRounds> _gameRounds;
 
-        public InGamePlayer(Player player, Game game, List<Card> hand_cards,List<GameRounds> gameRounds, int sort)
+        public InGamePlayer(Player player, Game game, List<Card> hand_cards, int sort)
         {
             _player = player;
             _game = game;
             _sort = sort;
             _hand_cards = hand_cards;
-            _gameRounds = gameRounds;
+            //_gameRounds = gameRounds;
         }
        
         public Player player { get => _player; set => _player = value; }
         public Game game { get => _game; set => _game = value; }
         public List<Card> hand_cards {  get => _hand_cards; set => _hand_cards = value;}
         public bool isUseExchangeHands { get; set; } = false;
+        public int point { get => _point; set => _point = value;}
+        public int sort { get => _sort; set => _sort = value; }
 
         public Card DrawCard()
         {
@@ -43,12 +46,13 @@ namespace C1M1H1
 
         public int CalcPoint()
         {
-            int point = 0;
-            foreach(var round in _gameRounds)
-            {
-                point += round.point;
-            }
-            return point;
+            //int point = 0;
+            //foreach(var round in _gameRounds)
+            //{
+            //    point += round.point;
+            //}
+            //return point;]
+            return 0;
         }
 
         public Card Show()

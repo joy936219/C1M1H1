@@ -48,12 +48,13 @@
     <Compile Include="CommandLineInterface.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="GameRounds.cs" />
+    <Compile Include="RoundsOfGame.cs" />
     <Compile Include="Human_Player.cs" />
     <Compile Include="InGamePlayer.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TurnsOfRound.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
