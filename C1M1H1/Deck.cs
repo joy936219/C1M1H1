@@ -72,7 +72,9 @@ namespace C1M1H1
         }
 
         public List<Card> cards { get => _cards; set => _cards = value; }
-
+        /// <summary>
+        /// 牌堆開始洗牌
+        /// </summary>
         public void Shuffle()
         {
             Console.WriteLine($"牌堆開始洗牌 \r\n");

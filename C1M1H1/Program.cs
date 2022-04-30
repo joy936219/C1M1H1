@@ -29,6 +29,8 @@ namespace C1M1H1
 
             game.Start();
 
+            game.Over();
+
             Console.ReadLine();
 
 

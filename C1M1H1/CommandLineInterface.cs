@@ -10,8 +10,8 @@ namespace C1M1H1
     {
         public string Command(string command)
         {
-            Console.WriteLine($"請選擇你要出的牌");
-            Console.WriteLine(command);
+            //Console.WriteLine($"請選擇你要出的牌");
+            Console.WriteLine($"{command} \r\n");
             var select = Console.ReadLine();
             return select;
         }

@@ -10,27 +10,32 @@ namespace C1M1H1
     {
         private int _sort;
         private int _point = 0;
+        private bool _isUseExchangeHands = false;
         private Player _player;
         private Game _game;
         private List<Card> _hand_cards;
+        private Exchange_Hands _exchage_hands;
         //private List<GameRounds> _gameRounds;
 
-        public InGamePlayer(Player player, Game game, List<Card> hand_cards, int sort)
+        public InGamePlayer(Player player, Game game, List<Card> hand_cards , int sort)
         {
             _player = player;
             _game = game;
             _sort = sort;
             _hand_cards = hand_cards;
-            //_gameRounds = gameRounds;
         }
        
         public Player player { get => _player; set => _player = value; }
         public Game game { get => _game; set => _game = value; }
         public List<Card> hand_cards {  get => _hand_cards; set => _hand_cards = value;}
-        public bool isUseExchangeHands { get; set; } = false;
+        public bool isUseExchangeHands { get => _isUseExchangeHands; set => _isUseExchangeHands = value; }
         public int point { get => _point; set => _point = value;}
         public int sort { get => _sort; set => _sort = value; }
-
+        public Exchange_Hands exchange_hands { get => _exchage_hands;}
+        /// <summary>
+        /// 玩家抽牌
+        /// </summary>
+        /// <returns>抽到的牌</returns>
         public Card DrawCard()
         {
             var cards = game.deck.cards;
@@ -38,32 +43,50 @@ namespace C1M1H1
             cards.Remove(card);
             return card;
         }
-
+        /// <summary>
+        /// 加入玩家的手牌上
+        /// </summary>
+        /// <param name="card">抽到的牌</param>
         public void AddHandCard(Card card)
         {
             hand_cards.Add(card);
         }
-
-        public int CalcPoint()
+        /// <summary>
+        /// 玩家得分加1分
+        /// </summary>
+        public void GainPoint()
         {
-            //int point = 0;
-            //foreach(var round in _gameRounds)
-            //{
-            //    point += round.point;
-            //}
-            //return point;]
-            return 0;
+            _point += 1;
         }
-
+        /// <summary>
+        /// 玩家選擇一張牌出牌
+        /// </summary>
+        /// <returns></returns>
         public Card Show()
         {
-            Card card = new Card();
-            var cards =  _hand_cards.Select((s,index) => new  { index = index, cmd = $"{index + 1}", name = Enum.GetName(typeof(Suit), s.Suit) + "-" + Enum.GetName(typeof(Rank), s.Rank).Replace("_","") }  );
-            var select = _player.DoSelect(string.Join("\t", cards.Select(n => $"{n.cmd}. {n.name}")));
-            var select_index = Convert.ToInt32(select) - 1;
-            card = _hand_cards[select_index];
-            _hand_cards.RemoveAt(select_index);
-            return card;
+            var select = _player.CardSelect(_hand_cards);
+            _hand_cards.Remove(select);
+            return select;
+        }
+        /// <summary>
+        /// 詢問玩家是否要使用交換手牌特權
+        /// </summary>
+        public void UseExchangeHands()
+        {
+            if (!_isUseExchangeHands)
+            {
+                if(_player.UseExchangeHand())
+                {
+                    var excahange_players = game.inGamePlayers.Where(p => p.sort != this.sort).ToList();
+                    var select_player = _player.ExchageHandsSelect(excahange_players);
+                    Exchange_Hands exchange_Hands = new Exchange_Hands(this,select_player);
+                    _exchage_hands = exchange_Hands;
+                    _exchage_hands.ExchangeHand();
+                    _isUseExchangeHands = true;                    
+                }
+               
+            }
+           
         }
     }
 }
