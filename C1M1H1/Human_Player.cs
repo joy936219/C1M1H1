@@ -16,8 +16,7 @@ namespace C1M1H1
         /// <returns>選擇的牌</returns>
         public override Card CardSelect(List<Card> cards)
         {
-            var command_text = CardSelectCommandText(cards);
-            var select = commandLineInterface.Command(command_text);
+            var select = commandLineInterface.CardSelectCommand(cards);
             var index = Convert.ToInt32(select) - 1;
             var card = cards[index];
             return card;
@@ -28,8 +27,7 @@ namespace C1M1H1
         /// <returns></returns>
         public override bool UseExchangeHand()
         {
-            var command_text = UseExchangeHandText();
-            var select = commandLineInterface.Command(command_text);
+            var select = commandLineInterface.UseExchangeHandCommand();
             return select == "1";
         }
         /// <summary>
@@ -39,8 +37,7 @@ namespace C1M1H1
         /// <returns>除了自己，其中一位遊戲中的玩家</returns>
         public override InGamePlayer ExchageHandsSelect(List<InGamePlayer> inGamePlayers)
         {
-            var command_text = ExchangeHandSelectText(inGamePlayers);
-            var select = commandLineInterface.Command(command_text);
+            var select = commandLineInterface.ExchangeHandSelectCommand(inGamePlayers);
             var index = Convert.ToInt32(select) - 1;
             return inGamePlayers[index];
 

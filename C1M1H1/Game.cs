@@ -67,7 +67,6 @@ namespace C1M1H1
             Console.WriteLine("開始進行抽牌 \r\n");
             for (int round = 1;round <= _maxGameRounds; round++)
             {
-                //Console.WriteLine($"抽牌第{round}輪 \r\n");
                 foreach (var player in _inGamePlayers)
                 {
                     var card = player.DrawCard();

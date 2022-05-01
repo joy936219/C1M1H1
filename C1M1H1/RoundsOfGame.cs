@@ -35,6 +35,7 @@ namespace C1M1H1
         {
             foreach(var player in _InGamePlayers)
             {
+                Console.WriteLine($"輪到了 {player.player.name} 出牌 \r\n");
                 int turn = player.sort;
                 var card = player.Show();
                 TurnsOfRound turnsOfRound = new TurnsOfRound(turn, player, card);
@@ -46,6 +47,7 @@ namespace C1M1H1
         /// </summary>
         public void DisplayPlayersCard()
         {
+            Console.WriteLine("顯示出牌 \r\n");
             foreach(var turn in _turnsOfRounds)
             {
                 Console.WriteLine($"{turn.inGamePlayer.player.name} 出了 {Enum.GetName(typeof(Suit), turn.card.Suit) + "-" + Enum.GetName(typeof(Rank), turn.card.Rank).Replace("_", "")} \r\n");
